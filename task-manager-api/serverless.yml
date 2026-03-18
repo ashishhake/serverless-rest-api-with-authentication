@@ -1,0 +1,44 @@
+org: jwala
+
+service: task-manager-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-south-1
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:PutItem
+            - dynamodb:GetItem
+            - dynamodb:Scan
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+          Resource:
+            - Fn::GetAtt: [tasksTable, Arn]
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+resources:
+  Resources:
+    tasksTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: TasksTable
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - KeyType: HASH
+            AttributeName: id
+
+        BillingMode: PAY_PER_REQUEST

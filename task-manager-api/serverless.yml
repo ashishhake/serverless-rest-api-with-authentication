@@ -21,12 +21,12 @@ provider:
             - Fn::GetAtt: [tasksTable, Arn]
 
 functions:
-  hello:
-    handler: handler.hello
+  createTask:
+    handler: handler.createTask
     events:
       - httpApi:
-          path: /
-          method: get
+          path: /tasks
+          method: post
 
 resources:
   Resources:

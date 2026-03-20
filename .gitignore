@@ -1,0 +1,11 @@
+# Serverless framework artifacts
+.serverless/
+
+# Node.js dependencies
+task-manager-api/node_modules/
+
+# Environment variables
+.env
+
+# macOS specific
+.DS_Store

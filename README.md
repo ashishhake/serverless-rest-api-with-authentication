@@ -1,3 +1,20 @@
+# Serverless Task Manager API 🚀
+
+A production-ready, fully serverless REST API built on AWS. This project demonstrates modern cloud-native architecture, Infrastructure as Code (IaC), and secure authentication flows.
+
+## Core Technologies
+* **Compute:** AWS Lambda (Node.js 20.x, AWS SDK v3)
+* **Database:** Amazon DynamoDB (On-Demand, NoSQL)
+* **Routing:** Amazon API Gateway (HTTP API)
+* **Security:** Amazon Cognito (User Pools, JWT Authorizers), AWS IAM (Least Privilege Roles)
+* **Infrastructure as Code:** Serverless Framework
+* **Observability:** Amazon CloudWatch
+
+## Architecture Highlights
+* **Zero-Trust Compute:** Lambda functions are securely scoped with granular IAM roles to only access specific DynamoDB resources.
+* **Secured Endpoints:** API routes are protected by a Cognito JWT Authorizer, rejecting unauthorized requests at the edge before invoking compute resources.
+* **Modular Code:** Utilizes the AWS SDK v3 for highly optimized, lightweight Lambda deployment packages to minimize cold starts.
+
 ## Prerequisites
 
 To run and deploy this project locally, you will need:
@@ -19,3 +36,12 @@ To run and deploy this project locally, you will need:
 
 **Current Routes:**
 * `POST /tasks` - Creates a new task item in DynamoDB with an auto-generated UUID.
+
+## Security & Authentication
+* **Identity Provider:** Amazon Cognito (User Pools).
+* **API Protection:** API Gateway JWT Authorizer configured to validate Cognito-issued JSON Web Tokens.
+* **Flow:** Unauthenticated requests are immediately rejected at the API Gateway layer (`401 Unauthorized`), protecting downstream Lambda compute and DynamoDB read/write capacity.
+
+## Observability & Debugging
+* **Logging:** Integrated with Amazon CloudWatch for centralized log management.
+* **Operations:** Utilized Serverless Framework CLI (`serverless logs`) for remote debugging and stack trace analysis to resolve runtime execution errors.

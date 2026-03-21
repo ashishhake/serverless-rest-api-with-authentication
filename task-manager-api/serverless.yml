@@ -4,7 +4,7 @@ service: task-manager-api
 
 provider:
   name: aws
-  runtime: nodejs20.x
+  runtime: nodejs24.x
   region: ap-south-1
 
   iam:
@@ -20,6 +20,21 @@ provider:
           Resource:
             - Fn::GetAtt: [tasksTable, Arn]
 
+  httpApi:
+    authorizers:
+      myAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: 
+          Fn::Join:
+            - ""
+            - - "https://cognito-idp.ap-south-1.amazonaws.com/"
+              - Ref: UserPool
+        audience:
+          - Ref: usersClient
+        
+
+
 functions:
   createTask:
     handler: handler.createTask
@@ -27,6 +42,8 @@ functions:
       - httpApi:
           path: /tasks
           method: post
+          authorizer:
+            name: myAuthorizer
 
 resources:
   Resources:
@@ -42,3 +59,18 @@ resources:
             AttributeName: id
 
         BillingMode: PAY_PER_REQUEST
+
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: TaskManagerUserPool
+
+    usersClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: TaskManagerUserClient
+        UserPoolId: 
+          Ref: UserPool
+
+
+

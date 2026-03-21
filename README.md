@@ -1,4 +1,4 @@
-# Serverless Task Manager API 🚀
+# Serverless Task Manager API
 
 A production-ready, fully serverless REST API built on AWS. This project demonstrates modern cloud-native architecture, Infrastructure as Code (IaC), and secure authentication flows.
 

@@ -1,6 +1,6 @@
-const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
-const { PutCommand, DynamoDBDocumentClient } = require("@aws-sdk/lib-dynamodb");
-const { v4: uuidv4 } = require("uuid"); // Recommended for generating unique IDs
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { PutCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
+import { randomUUID } from "node:crypto"; // Recommended for generating unique IDs
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
@@ -10,7 +10,7 @@ module.exports.createTask = async (event) => {
   try {
     // Parse the incoming request body
     const requestBody = JSON.parse(event.body);
-    const id = uuidv4(); 
+    const id = randomUUID(); 
 
     const command = new PutCommand({
       TableName: "TasksTable",

@@ -1,11 +1,10 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { PutCommand, DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
-import { randomUUID } from "node:crypto"; // Recommended for generating unique IDs
+const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
+const { PutCommand, DynamoDBDocumentClient } = require("@aws-sdk/lib-dynamodb");
+const { randomUUID } = require("node:crypto"); // Brilliant optimization here!
 
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
-// Fixed: module.exports (plural)
 module.exports.createTask = async (event) => {
   try {
     // Parse the incoming request body

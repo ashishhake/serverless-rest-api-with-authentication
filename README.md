@@ -11,3 +11,11 @@ To run and deploy this project locally, you will need:
 * **Compute:** AWS Lambda running Node.js 20.x.
 * **SDK:** AWS SDK v3 for JavaScript (`@aws-sdk/client-dynamodb`, `@aws-sdk/lib-dynamodb`) for modular, lightweight execution.
 * **IAM Security:** Lambda functions are scoped with Least Privilege IAM roles, granting specific CRUD access only to the target DynamoDB table.
+
+## API Endpoints & Routing
+* **Framework:** Serverless Framework
+* **Routing:** Amazon API Gateway (HTTP API)
+* **Testing:** Validated local execution and database integration using `serverless dev`.
+
+**Current Routes:**
+* `POST /tasks` - Creates a new task item in DynamoDB with an auto-generated UUID.
